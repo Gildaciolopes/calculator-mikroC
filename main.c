@@ -48,15 +48,22 @@ char tecla(){
 }
 float num1, num2, re, acum=0.0;
 char aux[20]=" ", condicion = 0,te,i = 1,oper;
+char alerta = 0;
 
 void get_num1(){
      do{te=tecla();
         LCD_Cmd(_LCD_CLEAR);
         LCD_Chr(1,i,te);
         i++;
-        if(te == '+' || te == '-' || te == '*' || te == '/'){
-           condicion =1;
-           oper = te;
+        if(te == '+' || te == '-' || te == '*' || te == '/' || te == '='){
+           if(te!='='){
+              condicion =1;
+              oper = te;
+           }
+           else{
+              i--;
+              LCD_Chr(1,i, ' ');
+           }
         }
         else{
            te = te-48;
@@ -73,7 +80,13 @@ void get_num2(){
          LCD_Chr(1,i,te);
          i++;
          if(te == '+' || te == '-' || te == '*' || te == '/' || te == '='){
-            condicion = 1;
+            if(te == '='){
+               condicion = 1;
+            }
+            else{
+               i--;
+               LCD_Chr(1,i,' ');
+            }
          }
          else{
             te = te-48;
@@ -101,10 +114,24 @@ void main() {
             case '+': re=num1+num2; break;
             case '-': re=num1-num2; break;
             case '*': re=num1*num2; break;
-            case '/': re=num1/num2; break;
+            case '/': if(num2 == 0){
+                         alerta = 1;
+                      }
+                      else{
+                         re=num1/num2;
+                      }
+                      break;
          }
-         sprintf(aux, "%0.1f",re);
-         LCD_Out_Cp(aux);
+         if(alerta == 0){
+            sprintf(aux, "%0.1f",re);
+            LCD_Out_Cp(aux);
+         }
+         else{
+            alerta = 0;
+            sprintf(aux, " FATAL ERROR ");
+            LCD_Out(1, 1,"                    ");
+            LCD_Out(1, 1, aux);
+         }
          LCD_Out(2,1,"PRESS to RESET");
          te = tecla();
      }
