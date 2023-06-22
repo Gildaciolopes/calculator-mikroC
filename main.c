@@ -93,3 +93,27 @@ void get_num2(){
          acum = 0;
          condicion = 0;
 }
+
+void main() {
+     ADCON1 = 0b00001111;
+     LCD_Init();
+     LCD_Cmd(12);
+     Keypad_Init();
+     while(1){
+         LCD_Cmd(1);
+         
+         get_num1();
+         get_num2();
+         i=1;
+         switch(oper){
+            case '+': re=num1+num2; break;
+            case '-': re=num1-num2; break;
+            case '*': re=num1*num2; break;
+            case '/': re=num1/num2; break;
+         }
+         sprintf(aux, "%0.1f",re);
+         LCD_Out_Cp(aux);
+         LCD_Out(2,1,"PRESS to RESET");
+         te = tecla();
+     }
+}
