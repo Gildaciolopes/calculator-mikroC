@@ -1,14 +1,6 @@
   // ** Diretivas de Pré Processamento ** */
 #include <string.h>
 #include <stdlib.h>
-#define Col_1 (RB4_bit)
-#define Col_2 (RB5_bit)
-#define Col_3 (RB6_bit)
-#define Col_4 (RB7_bit)
-#define La (RB0_bit)
-#define Lb (RB1_bit)
-#define Lc (RB2_bit)
-#define Ld (RB3_bit)
 
 char keypadPort at PORTB;
 
