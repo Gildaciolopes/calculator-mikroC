@@ -46,12 +46,12 @@ char tecla(){
      }
      return kp;
 }
-
 float num1, num2, re, acum=0.0;
 char aux[20]=" ", condicion = 0,te,i = 1,oper;
 
 void get_num1(){
      do{te=tecla();
+        LCD_Cmd(_LCD_CLEAR);
         LCD_Chr(1,i,te);
         i++;
         if(te == '+' || te == '-' || te == '*' || te == '/'){
@@ -85,7 +85,7 @@ void get_num2(){
          acum = 0;
          condicion = 0;
 }
-
+         
 void main() {
      ADCON1 = 0b00001111;
      LCD_Init();
