@@ -54,5 +54,42 @@ char tecla(){
      }
      return kp;
 }
+
 float num1, num2, re, acum=0.0;
 char aux[20]=" ", condicion = 0,te,i = 1,oper;
+
+void get_num1(){
+     do{te=tecla();
+        LCD_Chr(1,i,te);
+        i++;
+        if(te == '+' || te == '-' || te == '*' || te == '/'){
+           condicion =1;
+           oper = te;
+        }
+        else{
+           te = te-48;
+           acum = acum*10.0+te;
+        }
+        
+        }while(condicion!=1);
+        num1 = acum;
+        acum = 0;
+        condicion = 0;
+}
+void get_num2(){
+     do{te=tecla();
+         LCD_Chr(1,i,te);
+         i++;
+         if(te == '+' || te == '-' || te == '*' || te == '/' || te == '='){
+            condicion = 1;
+         }
+         else{
+            te = te-48;
+            acum = acum*10.0+te;
+         }
+
+    }while(condicion!=1);
+         num2 = acum;
+         acum = 0;
+         condicion = 0;
+}
